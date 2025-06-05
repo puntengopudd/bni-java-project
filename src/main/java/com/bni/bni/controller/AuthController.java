@@ -24,7 +24,8 @@ public class AuthController {
     public ResponseEntity<Map<String, Object>> register(@RequestBody Map<String, String> body) {
         String username = body.get("username");
         String password = body.get("password");
-        String message = authService.register(username, password);
+        String emailAddress = body.get("emailAddress");
+        String message = authService.register(username, password, emailAddress);
 
         Map<String, Object> response = new HashMap<>();
         response.put("status", 200);
@@ -37,14 +38,14 @@ public class AuthController {
     public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> body) {
         String username = body.get("username");
         String password = body.get("password");
-        String token = authService.login(username, password);
+        String emailAddress = body.get("emailAddress");
+        String token = authService.login(username, password, emailAddress);
 
         Map<String, Object> response = new HashMap<>();
         if (token != null) {
             response.put("status", 200);
             response.put("token", token);
             response.put("message", "Login successful");
-            response.put("message", "Ciee Berhasil Login");
             return ResponseEntity.ok(response);
         } else {
             response.put("status", 401);
@@ -76,7 +77,6 @@ public class AuthController {
 
             response.put("status", 200);
             response.put("username", claims.getSubject());
-            response.put("role", claims.get("role"));
             response.put("issuedAt", claims.getIssuedAt());
             response.put("expiration", claims.getExpiration());
 
