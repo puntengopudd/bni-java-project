@@ -30,7 +30,7 @@ public class AuthService {
         User user = new User();
         user.setUsername(username);
         user.setPassword(encoder.encode(password));
-        user.setEmailAddress(); // Default email, can be changed later
+        user.setEmailAddress(emailAddress); // Default email, can be changed later
         user.setIsActive(true);
         user.setCreatedAt(OffsetDateTime.now());
         user.setUpdatedAt(OffsetDateTime.now());

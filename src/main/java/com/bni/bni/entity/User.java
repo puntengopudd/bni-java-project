@@ -66,11 +66,11 @@ public class User {
         this.password = password;
     }
 
-    public String setEmailAddress() {
+    public String getEmailAddress() {
         return emailAddress;
     }
 
-    public void getEmailAddress(String emailAddress) {
+    public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
 
