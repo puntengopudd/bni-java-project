@@ -77,6 +77,7 @@ public class AuthController {
 
             response.put("status", 200);
             response.put("username", claims.getSubject());
+            // Hapus response.put("role", ...)
             response.put("issuedAt", claims.getIssuedAt());
             response.put("expiration", claims.getExpiration());
 

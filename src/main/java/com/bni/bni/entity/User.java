@@ -42,6 +42,18 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
+    @PrePersist
+    public void prePersist() {
+        OffsetDateTime now = OffsetDateTime.now();
+        this.createdAt = now;
+        this.updatedAt = now;
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedAt = OffsetDateTime.now();
+    }
+
     public Long getId() {
         return id;
     }
