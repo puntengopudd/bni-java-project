@@ -47,13 +47,8 @@ public class AuthService {
         Optional<User> user = repo.findByUsername(username);
         if (user.isPresent() && encoder.matches(password, user.get().getPassword())) {
             // Token generation, adjust as needed (no role in entity)
-            return jwtUtil.generateToken(username, password);
+            return jwtUtil.generateToken(username, null);
         }
         return null;
-    }
-
-    public String login(String username, String password, String emailAddress) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'login'");
     }
 }

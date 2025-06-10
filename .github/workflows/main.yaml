@@ -1,0 +1,25 @@
+name: Trigger OpenShift Build
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  trigger-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/chec
+
+      - name: Install OC CLI
+        run: |
+          curl -LO https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/openshift-client-linux.tar.gz
+          tar -xvf openshift-client-linux.tar.gz
+          sudo mv oc kubectl /usr/local/bin/
+          oc version
+      - name: Login to OpenShift
+        run: |
+          oc login --token=${{ secrets.OC_TOKEN }} --server=${{ secrets.OC_SERVER }}
+      - name: Start OpenShift Build
+        run: |
+          oc start-build ${{ secrets.OC_BUILD_NAME}} -n ${{ secrets.OC_NAMESPACE }} --wait --follow

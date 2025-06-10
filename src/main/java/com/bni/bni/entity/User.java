@@ -3,6 +3,7 @@ package com.bni.bni.entity;
 import jakarta.persistence.*;
 import java.time.OffsetDateTime;
 
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -14,29 +15,29 @@ public class User {
     @Column(nullable = false, unique = true)
     private String username;
 
+    @Column(name = "email_address", nullable = false, unique = true)
+    private String emailAddress;
+
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "email_address", nullable = false)
-    private String emailAddress;
-
     @Column(name = "is_active", nullable = false)
-    private boolean isActive;
+    private Boolean isActive;
 
     @Column(name = "created_at", nullable = false)
     private OffsetDateTime createdAt;
 
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at")
     private OffsetDateTime updatedAt;
 
     public User() {
-      // default constructor
+        // default constructor
     }
 
-    public User(String username, String password, String emailAddress, boolean isActive, OffsetDateTime createdAt, OffsetDateTime updatedAt) {
+    public User(String username, String emailAddress, String password, Boolean isActive, OffsetDateTime createdAt, OffsetDateTime updatedAt) {
         this.username = username;
-        this.password = password;
         this.emailAddress = emailAddress;
+        this.password = password;
         this.isActive = isActive;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -70,14 +71,6 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -86,13 +79,20 @@ public class User {
         this.emailAddress = emailAddress;
     }
 
-    public boolean getIsActive() {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Boolean getIsActive() {
         return isActive;
     }
 
-    public boolean setIsActive(boolean isActive) {
+    public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
-        return this.isActive;
     }
 
     public OffsetDateTime getCreatedAt() {

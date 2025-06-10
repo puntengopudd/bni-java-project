@@ -6,6 +6,7 @@ import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -13,6 +14,12 @@ import java.util.HashMap;
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+//
+//    @Value("${CONFIG_MAP_VALUE:default-config}")
+//    private String configMapValue;
+
+//    @Value("${SECRET_VALUE:default-secret}")
+//    private String secretValue;
 
     @Autowired
     private AuthService authService;
@@ -23,9 +30,9 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<Map<String, Object>> register(@RequestBody Map<String, String> body) {
         String username = body.get("username");
+        String emailAddress = body.get("emailAddress"); // tambahkan ini
         String password = body.get("password");
-        String emailAddress = body.get("emailAddress");
-        String message = authService.register(username, password, emailAddress);
+        String message = authService.register(username, emailAddress, password);
 
         Map<String, Object> response = new HashMap<>();
         response.put("status", 200);
@@ -38,18 +45,17 @@ public class AuthController {
     public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> body) {
         String username = body.get("username");
         String password = body.get("password");
-        String emailAddress = body.get("emailAddress");
-        String token = authService.login(username, password, emailAddress);
+        String token = authService.login(username, password);
 
         Map<String, Object> response = new HashMap<>();
         if (token != null) {
             response.put("status", 200);
             response.put("token", token);
-            response.put("message", "Login successful");
+            response.put("message", "Login Berhasil");
             return ResponseEntity.ok(response);
         } else {
             response.put("status", 401);
-            response.put("message", "Invalid credentials");
+            response.put("message", "Token Tidak Valid");
             return ResponseEntity.status(401).body(response);
         }
     }
@@ -89,4 +95,5 @@ public class AuthController {
             return ResponseEntity.status(401).body(response);
         }
     }
+
 }
