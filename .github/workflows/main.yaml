@@ -2,7 +2,7 @@ name: Trigger OpenShift Build
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 jobs:
   trigger-build:
