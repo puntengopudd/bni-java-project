@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/profiles") //TAMBAHAN
+@RequestMapping("/api/profiles") //TAMBAHAN apa uyyaaa
 public class ProfileController {
 
     @Autowired
